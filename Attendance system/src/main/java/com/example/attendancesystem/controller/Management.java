@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Management {
     private ArrayList<Event> events;
-    private ArrayList<User> users;
+    private final ArrayList<User> users;
 
 
     public Management() {
@@ -26,8 +26,8 @@ public class Management {
         return users;
     }
 
-    public void setUsers(ArrayList<User> users) {
-        this.users = users;
+    public void setUsers(User user) {
+        this.users.add(user);
     }
 
     private void setMembers() {
@@ -35,14 +35,9 @@ public class Management {
     }
 
     public boolean authenticate(String username, String password) {
-        ArrayList<String> usernames = new ArrayList<>();
-        for (User user :
-                users) {
-            usernames.add(user.getUsername());
-        }
-        if (!usernames.isEmpty()) {
-            return usernames.contains(username);
-        }
+        for (User user : users)
+            if (user.getHashMap().get(username) != null)
+                if (user.getHashMap().get(username).equals(password)) return true;
         return false;
     }
 }
