@@ -12,7 +12,11 @@ public class Responsible extends User {
     }
 
     public int addMember(Event event, ArrayList<String> members) {
-        event.setMembers(members);
-        return 0;
+        Event newEvent = new Event(event.getTitle(), event.getDate());
+        newEvent.setMembers(members);
+
+        // TODO Database driver
+        if (getDriver().update(event, newEvent)) return 0;
+        return -1;
     }
 }
