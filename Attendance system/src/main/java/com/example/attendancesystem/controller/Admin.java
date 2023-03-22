@@ -3,7 +3,7 @@ package com.example.attendancesystem.controller;
 import com.example.attendancesystem.database.DatabaseDriver;
 import com.example.attendancesystem.model.Event;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Admin extends User {
 
