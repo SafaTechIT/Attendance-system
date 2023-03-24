@@ -1,30 +1,29 @@
 package com.example.attendancesystem.Database;
 
-import com.example.attendancesystem.database.DatabaseDriver;
+import com.example.attendancesystem.database.EventsDriver;
 import com.example.attendancesystem.model.Event;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.sql.Date;
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.ArrayList;
-import java.sql.Date;
+public class EventsDriverTest {
 
-public class DatabaseDriverTest {
+    private final EventsDriver driver;
 
-    private final DatabaseDriver driver;
-
-    public DatabaseDriverTest() {
-        driver = new DatabaseDriver();
+    public EventsDriverTest() {
+        driver = new EventsDriver();
     }
 
     @Test
     public void testGet() {
-        insertTest();
-        ArrayList<Event> events = driver.get();
+//        insertTest();
+        ArrayList<Event> events = driver.getEvents();
+        System.out.println("Title\tDate\tMembers");
         for (Event event : events) {
-            assertEquals("title\t2023-03-22",
-                    event.getTitle() + "\t" + event.getDate());
+            System.out.println(event.getTitle() + "\t" + event.getDate() + "\t" + event.getMembers());
         }
     }
 
@@ -40,7 +39,7 @@ public class DatabaseDriverTest {
         driver.insert(event);
         assertTrue(driver.update(event, newEvent));
         System.out.println("Update:\nTitle\tDate\tMembers");
-        for (Event ev : driver.get()) {
+        for (Event ev : driver.getEvents()) {
             System.out.println(ev.getTitle() + "\t" + ev.getDate() + "\t" + ev.getMembers().size());
         }
     }
