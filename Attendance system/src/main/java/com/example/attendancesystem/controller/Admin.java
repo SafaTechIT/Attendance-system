@@ -1,6 +1,5 @@
 package com.example.attendancesystem.controller;
 
-import com.example.attendancesystem.database.DatabaseDriver;
 import com.example.attendancesystem.model.Event;
 
 import java.sql.Date;

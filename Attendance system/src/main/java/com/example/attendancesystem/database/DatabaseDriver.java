@@ -2,6 +2,10 @@ package com.example.attendancesystem.database;
 
 import com.example.attendancesystem.model.Event;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class DatabaseDriver {
@@ -9,6 +13,22 @@ public class DatabaseDriver {
 
     public DatabaseDriver() {
         events = new ArrayList<>();
+    }
+
+    private void connector() {
+        Connection connection = null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/db",
+                    "mydbuser",
+                    "mydbuser");
+
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from designation");
+        } catch (Exception ignore) {
+
+        }
     }
 
     //  TODO get event from database
