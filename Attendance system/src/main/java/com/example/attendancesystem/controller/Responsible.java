@@ -4,6 +4,7 @@ import com.example.attendancesystem.model.Event;
 
 import java.util.ArrayList;
 
+// Role 2
 public class Responsible extends User {
 
 

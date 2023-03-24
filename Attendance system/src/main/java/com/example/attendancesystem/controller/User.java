@@ -1,6 +1,6 @@
 package com.example.attendancesystem.controller;
 
-import com.example.attendancesystem.database.DatabaseDriver;
+import com.example.attendancesystem.database.EventsDriver;
 
 import java.util.HashMap;
 
@@ -10,7 +10,7 @@ public class User {
     private final HashMap<String, String> hashMap;
     private final String name;
     private final int role;
-    private final DatabaseDriver driver;
+    private final EventsDriver driver;
 
     public User(String username, String password, String name, int role) {
         this.hashMap = new HashMap<>();
@@ -18,7 +18,7 @@ public class User {
         hashMap.put(username, password);
         this.name = name;
         this.role = role;
-        driver = new DatabaseDriver();
+        driver = new EventsDriver();
     }
 
     public String getUsername() {
@@ -37,7 +37,7 @@ public class User {
         return hashMap;
     }
 
-    public DatabaseDriver getDriver() {
+    public EventsDriver getDriver() {
         return driver;
     }
 }

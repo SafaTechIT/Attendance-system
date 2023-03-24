@@ -4,6 +4,7 @@ import com.example.attendancesystem.model.Event;
 
 import java.util.ArrayList;
 
+// Role 1
 public class Management {
     private ArrayList<Event> events;
     private final ArrayList<User> users;

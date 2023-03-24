@@ -20,7 +20,7 @@ public class Admin extends User {
 
     public void showClasses() {
         // TODO Database driver for test Admin class
-        System.out.println(getDriver().get());
+        System.out.println(getDriver().getEvents());
     }
 
     public int delete(Event event) {
