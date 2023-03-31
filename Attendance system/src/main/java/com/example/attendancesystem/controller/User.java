@@ -1,42 +1,31 @@
 package com.example.attendancesystem.controller;
 
 import com.example.attendancesystem.database.EventsDriver;
+import com.example.attendancesystem.model.Member;
 
-import java.util.HashMap;
-
-public class User {
-
-    private final String username;
-    private final HashMap<String, String> hashMap;
-    private final String name;
-    private final int role;
+/**
+ *  Extend the Member class and implement the getDriver method.
+ */
+public class User extends Member {
     private final EventsDriver driver;
 
+    /**
+     * Construct the instance with the given parameters and
+     * create a new instance of EventsDriver for Users operations
+     *
+     * @param username Username of user that will be authenticated.
+     * @param password String that will be hashed and mapped to the username.
+     * @param name     Name of the user.
+     * @param role     Role of the user; its Admin or not.
+     */
     public User(String username, String password, String name, int role) {
-        this.hashMap = new HashMap<>();
-        this.username = username;
-        hashMap.put(username, password);
-        this.name = name;
-        this.role = role;
+        super(username, password, name, role);
         driver = new EventsDriver();
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getRole() {
-        return role;
-    }
-
-    public HashMap<String, String> getHashMap() {
-        return hashMap;
-    }
-
+    /**
+     *  Get the driver of events for its operations.
+     * **/
     public EventsDriver getDriver() {
         return driver;
     }
