@@ -3,6 +3,7 @@ package com.example.attendancesystem.controller;
 import com.example.attendancesystem.model.Event;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 public class Admin extends User {
 
@@ -16,8 +17,8 @@ public class Admin extends User {
         return -1;
     }
 
-    public void showClasses() {
-        System.out.println(getDriver().getEvents());
+    public ArrayList<Event> showClasses() {
+        return getDriver().getEvents();
     }
 
     public int delete(Event event) {
