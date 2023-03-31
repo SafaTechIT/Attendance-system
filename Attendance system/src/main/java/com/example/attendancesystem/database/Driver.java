@@ -1,9 +1,6 @@
 package com.example.attendancesystem.database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public abstract class Driver {
     private Connection connection;
@@ -13,7 +10,7 @@ public abstract class Driver {
         connector();
     }
 
-    private void connector() {
+    protected void connector() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(
@@ -29,15 +26,37 @@ public abstract class Driver {
         }
     }
 
-    public Connection getConnection() {
-        return connection;
-    }
-
-    public Statement getStatement() {
+    protected Statement getStatement() {
         return statement;
     }
 
-    protected abstract void get(Statement st);
+    protected Connection getConnection() {
+        return connection;
+    }
+
+    protected abstract void getAllObjects(Statement st);
+
+    protected abstract Object getObjects(Statement st, int id);
+
+    public abstract boolean insert(Object obj);
+
+    public abstract boolean update(int id, Object obj);
+
+    public abstract boolean delete(int id);
+
+    protected boolean deleteItem(String sql, int id) {
+        try {
+            connector();
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            closeAnything();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     protected void closeAnything() {
         try {
