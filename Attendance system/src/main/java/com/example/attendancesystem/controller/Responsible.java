@@ -16,8 +16,7 @@ public class Responsible extends User {
         Event newEvent = new Event(event.getTitle(), event.getDate());
         newEvent.setMembers(members);
 
-        // TODO Database driver
-        if (getDriver().update(event, newEvent)) return 0;
+        if (getDriver().update(0, newEvent)) return 0;
         return -1;
     }
 }
