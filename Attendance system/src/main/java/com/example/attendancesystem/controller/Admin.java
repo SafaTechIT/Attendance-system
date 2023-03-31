@@ -12,20 +12,16 @@ public class Admin extends User {
 
     public int addEvent(String title, Date date) {
         Event event = new Event(title, date);
-
-        // TODO Database driver for test Admin class
         if (getDriver().insert(event)) return 0;
         return -1;
     }
 
     public void showClasses() {
-        // TODO Database driver for test Admin class
         System.out.println(getDriver().getEvents());
     }
 
     public int delete(Event event) {
-        // TODO Database driver for test Admin class
-        if (getDriver().delete(event)) return 0;
+        if (getDriver().delete(event.getId())) return 0;
         return -1;
     }
 }
