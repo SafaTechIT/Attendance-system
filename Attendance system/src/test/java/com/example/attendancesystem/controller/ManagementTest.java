@@ -2,6 +2,7 @@ package com.example.attendancesystem.controller;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ManagementTest {
@@ -16,23 +17,19 @@ public class ManagementTest {
     public void authenticate() {
         String username = "username";
         String password = "password";
-
-        userCreator();
         assertTrue(management.authenticate(username, password));
     }
 
-    private void userCreator() {
+    @Test
+    public void incorrectUsername() {
         String username = "username";
-        String password = "password";
-        String name = "name";
-        int role = 0;
-
-        for (int i = 0; i < 10; i++) {
-            String str = "" + username + i;
-            User user = new User(str, password, name, role);
-            management.setUsers(user);
-        }
-        User user = new User(username, password, name, role);
-        management.setUsers(user);
+        assertFalse(management.correctUsername(username));
     }
+
+    @Test
+    public void correctUsername() {
+        String username = "username9";
+        assertTrue(management.correctUsername(username));
+    }
+
 }

@@ -1,10 +1,11 @@
 package com.example.attendancesystem.database;
 
 import com.example.attendancesystem.controller.User;
-import org.apache.tomcat.util.codec.binary.Base64;
 
 import java.io.Serializable;
-import java.nio.charset.StandardCharsets;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,11 +16,9 @@ import java.util.ArrayList;
 public class UserDriver extends Driver implements Serializable {
 
     private final ArrayList<User> users;
-    private final Base64 base64;
 
     public UserDriver() {
         users = new ArrayList<>();
-        base64 = new Base64(true);
     }
 
     public ArrayList<User> getUsers() {
@@ -70,7 +69,7 @@ public class UserDriver extends Driver implements Serializable {
             String username = rs.getString("username");
             String password = rs.getString("password");
             int role = rs.getInt("role");
-            User result = new User(username, decrypt(password), name, role);
+            User result = new User(username, password, name, role);
             result.setId(id);
             return result;
         } catch (SQLException e) {
@@ -136,14 +135,20 @@ public class UserDriver extends Driver implements Serializable {
         return deleteItem(sql, id);
     }
 
-    private String encrypt(String password) {
-        return base64.encodeAsString(password.getBytes(StandardCharsets.UTF_8));
-
-    }
-
-    private String decrypt(String password) {
-        byte[] bytes = base64.decode(password);
-        return new String(bytes);
+    public static String encrypt(String password) {
+        StringBuilder result;
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(password.getBytes());
+            BigInteger no = new BigInteger(1, messageDigest);
+            result = new StringBuilder(no.toString(16));
+            while (result.length() < 32) {
+                result.insert(0, "0");
+            }
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+        return result.toString();
 
     }
 }

@@ -1,13 +1,15 @@
 package com.example.attendancesystem.controller;
 
 import com.example.attendancesystem.database.EventsDriver;
+import com.example.attendancesystem.database.UserDriver;
 import com.example.attendancesystem.model.Member;
 
+import java.util.ArrayList;
+
 /**
- *  Extend the Member class and implement the getDriver method.
+ * Extend the Member class and implement the getDriver method.
  */
 public class User extends Member {
-    private final EventsDriver driver;
 
     /**
      * Construct the instance with the given parameters and
@@ -20,13 +22,9 @@ public class User extends Member {
      */
     public User(String username, String password, String name, int role) {
         super(username, password, name, role);
-        driver = new EventsDriver();
     }
 
-    /**
-     *  Get the driver of events for its operations.
-     * **/
-    public EventsDriver getDriver() {
-        return driver;
+    public static ArrayList<User> getUsers() {
+        return new UserDriver().getUsers();
     }
 }

@@ -1,42 +1,27 @@
 package com.example.attendancesystem.controller;
 
-import com.example.attendancesystem.model.Event;
-
-import java.util.ArrayList;
+import com.example.attendancesystem.database.UserDriver;
 
 // Role 1
 public class Management {
-    private ArrayList<Event> events;
-    private final ArrayList<User> users;
-
+    private static UserDriver driver;
 
     public Management() {
-        this.users = new ArrayList<>();
-        this.events = new ArrayList<>();
+        driver = new UserDriver();
     }
 
-    public ArrayList<Event> getEvents() {
-        return events;
+    public boolean correctUsername(String username) {
+        for (User user: driver.getUsers()) {
+            if (user.getUsername().equals(username)) {
+                return false;
+            }
+        }
+        return true;
     }
 
-    public void setEvents(ArrayList<Event> events) {
-        this.events = events;
-    }
-
-    public ArrayList<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(User user) {
-        this.users.add(user);
-    }
-
-    private void setMembers() {
-
-    }
-
-    public boolean authenticate(String username, String password) {
-        for (User user : users)
+    public static boolean authenticate(String username, String password) {
+        driver = new UserDriver();
+        for (User user : driver.getUsers())
             if (user.getHashMap().get(username) != null)
                 if (user.getHashMap().get(username).equals(password)) return true;
         return false;

@@ -1,5 +1,6 @@
 package com.example.attendancesystem.controller;
 
+import com.example.attendancesystem.database.EventsDriver;
 import com.example.attendancesystem.model.Event;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class Responsible extends User {
         Event newEvent = new Event(event.getTitle(), event.getDate());
         newEvent.setMembers(members);
 
-        if (getDriver().update(0, newEvent)) return 0;
+        if (new EventsDriver().update(0, newEvent)) return 0;
         return -1;
     }
 }

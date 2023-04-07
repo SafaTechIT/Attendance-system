@@ -28,14 +28,14 @@ public class UserDriveTest {
 
     @Test
     public void testGet() {
-        User user = drive.getUser(11);
+        User user = drive.getUser(22);
         System.out.println(user.getId() + "\t" + user.getName() + "\t" + user.getUsername() + "\t" + user.getHashMap().get(user.getUsername()) + "\t" + user.getRole());
 
     }
 
     @Test
     public void testInsert() {
-        assertTrue(drive.insert(new User("username", "password", "name", 1)));
+        assertTrue(drive.insert(new User("username", "password", "user", 1)));
     }
 
 

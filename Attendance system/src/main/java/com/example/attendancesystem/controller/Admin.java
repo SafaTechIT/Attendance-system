@@ -1,5 +1,7 @@
 package com.example.attendancesystem.controller;
 
+import com.example.attendancesystem.database.Driver;
+import com.example.attendancesystem.database.EventsDriver;
 import com.example.attendancesystem.model.Event;
 
 import java.sql.Date;
@@ -13,16 +15,16 @@ public class Admin extends User {
 
     public int addEvent(String title, Date date) {
         Event event = new Event(title, date);
-        if (getDriver().insert(event)) return 0;
+        if (new EventsDriver().insert(event)) return 0;
         return -1;
     }
 
     public ArrayList<Event> showClasses() {
-        return getDriver().getEvents();
+        return new EventsDriver().getEvents();
     }
 
     public int delete(Event event) {
-        if (getDriver().delete(event.getId())) return 0;
+        if (new EventsDriver().delete(event.getId())) return 0;
         return -1;
     }
 }
