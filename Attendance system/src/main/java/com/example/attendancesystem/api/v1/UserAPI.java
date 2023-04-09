@@ -38,8 +38,12 @@ public class UserAPI {
 
     @PostMapping(path = "/api/v1/users/add-user")
     public ResponseEntity<String> addUser(@RequestParam(name = "username") String username, @RequestParam(name = "password") String password, @RequestParam(name = "name") String name) {
-        if (Management.newUser(username, password, name, 2))
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+        JSONObject object = new JSONObject();
+        if (Management.newUser(username, password, name, 2)) {
+            object.put("username", username);
+            object.put("name", name);
+            return new ResponseEntity<>(object.toString(), HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(object.toString(), HttpStatus.NOT_MODIFIED);
     }
 }
