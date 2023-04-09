@@ -7,7 +7,7 @@ public class Member {
     private final String username;
     private final HashMap<String, String> hashMap;
     private final String name;
-    private final int role;
+    private final Integer role;
 
     public Member(String username, String password, String name, int role) {
         this.username = username;
