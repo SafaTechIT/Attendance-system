@@ -3,6 +3,7 @@ package com.example.attendancesystem.api.v1;
 import com.example.attendancesystem.controller.Management;
 import com.example.attendancesystem.controller.User;
 import com.example.attendancesystem.database.UserDriver;
+import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +15,31 @@ import java.util.ArrayList;
 public class UserAPI {
 
     @PostMapping(path = "/api/v1/users/login-auth")
-    public ResponseEntity<User> authentication(@RequestParam(name = "username") String username, @RequestParam(name = "password") String password) {
+    public ResponseEntity<String> authentication(@RequestParam(name = "username") String username, @RequestParam(name = "password") String password) {
         User user = Management.authenticate(username, UserDriver.encrypt(password));
-        if (user != null)
-            return new ResponseEntity<>(user, HttpStatus.OK);
+        JSONObject object = new JSONObject();
+        if (user != null) {
+            int id = user.getId();
+            int role = user.getRole();
+            String name = user.getName();
+            object.put("id", id);
+            object.put("name", name);
+            object.put("username", username);
+            object.put("role", role);
+            return new ResponseEntity<>(object.toString(), HttpStatus.OK);
+        }
         return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping(path = "/api/v1/users/get-user")
     public ArrayList<User> getUsers() {
         return User.getUsers();
+    }
+
+    @PostMapping(path = "/api/v1/users/add-user")
+    public ResponseEntity<String> addUser(String username, String password, String name, int role) {
+        if (Management.newUser(username, password, name, role))
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
 }

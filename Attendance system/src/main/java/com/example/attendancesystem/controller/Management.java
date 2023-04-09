@@ -11,7 +11,7 @@ public class Management {
     }
 
     public boolean correctUsername(String username) {
-        for (User user: driver.getUsers()) {
+        for (User user : driver.getUsers()) {
             if (user.getUsername().equals(username)) {
                 return false;
             }
@@ -25,5 +25,10 @@ public class Management {
             if (user.getHashMap().get(username) != null)
                 if (user.getHashMap().get(username).equals(password)) return user;
         return null;
+    }
+
+    public static boolean newUser(String username, String password, String name, int role) {
+        User user = new User(username, password, name, role);
+        return new UserDriver().insert(user);
     }
 }
