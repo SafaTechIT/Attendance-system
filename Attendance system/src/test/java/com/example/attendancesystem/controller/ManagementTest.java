@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ManagementTest {
 
@@ -17,7 +18,9 @@ public class ManagementTest {
     public void authenticate() {
         String username = "username";
         String password = "password";
-        assertTrue(management.authenticate(username, password));
+        User user = Management.authenticate(username, password);
+        if (user != null)
+            assertEquals(1, user.getRole());
     }
 
     @Test

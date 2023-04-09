@@ -19,11 +19,11 @@ public class Management {
         return true;
     }
 
-    public static boolean authenticate(String username, String password) {
+    public static User authenticate(String username, String password) {
         driver = new UserDriver();
         for (User user : driver.getUsers())
             if (user.getHashMap().get(username) != null)
-                if (user.getHashMap().get(username).equals(password)) return true;
-        return false;
+                if (user.getHashMap().get(username).equals(password)) return user;
+        return null;
     }
 }

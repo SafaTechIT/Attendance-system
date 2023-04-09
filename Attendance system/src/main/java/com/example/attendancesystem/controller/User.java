@@ -25,6 +25,11 @@ public class User extends Member {
     }
 
     public static ArrayList<User> getUsers() {
-        return new UserDriver().getUsers();
+        ArrayList<User> users = new UserDriver().getUsers();
+        for (User us :
+                users) {
+            us.getHashMap().replace(us.getUsername(), "Password protected");
+        }
+        return users;
     }
 }

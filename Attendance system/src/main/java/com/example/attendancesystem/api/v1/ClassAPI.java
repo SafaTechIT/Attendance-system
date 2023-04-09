@@ -1,4 +1,4 @@
-package com.example.attendancesystem.api;
+package com.example.attendancesystem.api.v1;
 
 
 import org.springframework.web.bind.annotation.CrossOrigin;
