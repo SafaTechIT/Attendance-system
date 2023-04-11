@@ -37,6 +37,10 @@ public class Member {
         return name;
     }
 
+    public void setPassword(String password) {
+        hashMap.put(username, password);
+    }
+
     public int getRole() {
         return role;
     }

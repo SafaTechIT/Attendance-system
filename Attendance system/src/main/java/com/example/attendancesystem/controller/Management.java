@@ -31,4 +31,15 @@ public class Management {
         User user = new User(username, password, name, role);
         return new UserDriver().insert(user);
     }
+
+    public static boolean updateUser(int id, String password) {
+        driver = new UserDriver();
+        User user = driver.getUser(id);
+        user.setPassword(password);
+        return new UserDriver().update(id, user);
+    }
+
+    public static boolean deleteUser(int id) {
+        return new UserDriver().delete(id);
+    }
 }

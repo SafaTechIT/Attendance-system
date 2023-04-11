@@ -1,6 +1,5 @@
 package com.example.attendancesystem.controller;
 
-import com.example.attendancesystem.database.EventsDriver;
 import com.example.attendancesystem.database.UserDriver;
 import com.example.attendancesystem.model.Member;
 
