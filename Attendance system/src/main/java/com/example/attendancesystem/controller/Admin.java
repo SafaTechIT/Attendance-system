@@ -19,7 +19,7 @@ public class Admin extends User {
         return -1;
     }
 
-    public ArrayList<Event> showClasses() {
+    public static ArrayList<Event> showClasses() {
         return new EventsDriver().getEvents();
     }
 

@@ -3,10 +3,13 @@ package com.example.attendancesystem.api.v1;
 import com.example.attendancesystem.controller.Management;
 import com.example.attendancesystem.controller.User;
 import com.example.attendancesystem.database.UserDriver;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @RestController
 @CrossOrigin(origins = "localhost:8080")
@@ -35,14 +38,17 @@ public class UserAPI {
 
     @GetMapping(path = "/api/v1/users/get-user")
     public String getUsers() {
-        JSONObject object = new JSONObject();
+        ArrayList<User> users = User.getUsers();
+        JSONArray result = new JSONArray();
         for (User user :
-                User.getUsers()) {
+                users) {
+            JSONObject object = new JSONObject();
             object.put("id", user.getId());
             object.put("name", user.getName());
             object.put("role", user.getRole());
+            result.put(object);
         }
-        return object.toString();
+        return result.toString();
     }
 
     @GetMapping(path = "/api/v1/users/{id}")
